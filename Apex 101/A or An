@@ -1,0 +1,10 @@
+public String aOrAn(String word) {
+    String letra = word.substring(0,1).ToLowerCase();
+
+    if(letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u'){
+        return 'an ' + word;
+    }
+    else{
+        return 'a ' + word;
+    }
+}
