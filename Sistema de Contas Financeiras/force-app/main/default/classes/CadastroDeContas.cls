@@ -1,4 +1,4 @@
-public with sharing class CadastroDeContas {
+public class CadastroDeContas {
     //Atributos
     List<Conta> contas = new List<Conta>();
 
@@ -22,5 +22,9 @@ public with sharing class CadastroDeContas {
             System.debug('Nome do Titular: ' + conta.getNomeTitular());
             System.debug('Saldo: ' + conta.getSaldo());
         }
+    }
+
+    public Decimal calcularTaxaTotal(List<Conta> contas){
+        return 0;
     }
 }
