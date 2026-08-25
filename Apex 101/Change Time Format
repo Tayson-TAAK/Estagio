@@ -1,0 +1,18 @@
+public String changeTimeFormat(String strTime) {
+    Integer horas = Integer.valueOf(strTime.substring(0, strTime.indexOf(':')));
+
+    if(horas >= 13){
+        if(String.valueOf(horas - 12).length() != 2){
+            return '0' + String.valueOf(horas - 12) + strTime.substring(strTime.indexOf(':'), strTime.length())+ ' PM';
+
+        }
+        return String.valueOf(horas - 12) + strTime.substring(strTime.indexOf(':'), strTime.length())+ ' PM';
+    }
+    else if(horas == 0){
+        return String.valueOf(horas + 12) + strTime.substring(strTime.indexOf(':'), strTime.length()) + ' AM';
+    }
+    else if(horas == 12){
+        return String.valueOf(horas) + strTime.substring(strTime.indexOf(':'), strTime.length()) + ' PM';
+    }
+    return strTime + ' AM';
+}
