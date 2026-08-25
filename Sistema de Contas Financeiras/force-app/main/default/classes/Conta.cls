@@ -1,4 +1,4 @@
-public with sharing class Conta {
+public abstract class Conta {
     //Atributos
     Integer numeroConta;
     String nomeTitular;
@@ -26,4 +26,7 @@ public with sharing class Conta {
             this.saldo = this.saldo + valor;
         }
     }
+
+    //Métodos abstratos
+    public abstract Decimal calcularTaxa();
 }
