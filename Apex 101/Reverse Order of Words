@@ -1,0 +1,13 @@
+public String reverseWordsInASentence(String sentence){
+    String novoTexto = '';
+
+    if(String.isEmpty(sentence)){
+        return sentence;
+    }
+
+    for(String palavra : sentence.reverse().split(' ')){
+        Integer i = 0;
+        novoTexto += palavra.reverse() + ' ';
+    }
+    return novoTexto.removeEnd(' ');
+}

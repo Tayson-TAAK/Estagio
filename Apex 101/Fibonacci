@@ -1,0 +1,12 @@
+public Integer fibonacci(Integer n) {
+    List<Integer> valores = new List<Integer>();
+    for(Integer i = 0; i != n; i++){
+        if(i == 0 || i == 1){
+            valores.add(1);
+            continue;
+        }
+        
+        valores.add(valores.get(i-1)+valores.get(i-2));
+    }
+    return valores.get(valores.size() - 1);
+}

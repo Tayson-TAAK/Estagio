@@ -1,0 +1,20 @@
+public Integer nextPrime(Integer num) {
+    boolean flag;
+    Integer menorPrimo = 0;
+    
+    if(num < 0){
+        return 2;
+    }
+    for(Integer i = num+1; ; i++){
+        flag = true;
+        for(Integer x = 2; x < i; x++){
+            if(Math.mod(i, x) == 0){
+                flag = false;
+            }
+        }
+        if(flag == true){
+            menorPrimo = i;
+            break;
+        }
+    }return menorPrimo;
+}
