@@ -1,4 +1,4 @@
-public abstract class Conta {
+public abstract with sharing class Conta {
     //Atributos
     Integer numeroConta;
     String nomeTitular;

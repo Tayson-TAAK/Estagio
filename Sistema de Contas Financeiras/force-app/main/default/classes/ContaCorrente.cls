@@ -1,4 +1,4 @@
-public class ContaCorrente extends Conta {
+public with sharing class ContaCorrente extends Conta {
     //Construtor
     public ContaCorrente(Integer numeroConta, String nomeTitular) {
         super(numeroConta, nomeTitular);

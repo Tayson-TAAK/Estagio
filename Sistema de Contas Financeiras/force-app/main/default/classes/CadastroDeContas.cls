@@ -1,4 +1,4 @@
-public class CadastroDeContas {
+public with sharing class CadastroDeContas {
     //Atributos
     List<Conta> contas = new List<Conta>();
 
