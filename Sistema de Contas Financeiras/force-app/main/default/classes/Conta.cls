@@ -1,14 +1,17 @@
-public abstract with sharing class Conta {
+public with sharing abstract class Conta {
+    public static Integer totalDeContas = 0;
+
     //Atributos
-    Integer numeroConta;
-    String nomeTitular;
-    Decimal saldo;
+    public Integer numeroConta;
+    public String nomeTitular;
+    public Decimal saldo;
 
     //Construtor
     public Conta(Integer numeroConta, String nomeTitular) {
         this.numeroConta = numeroConta;
         this.nomeTitular = nomeTitular;
         this.saldo = 0.0;
+        totalDeContas++;
     }
 
     //Getters and Setters
@@ -22,9 +25,8 @@ public abstract with sharing class Conta {
 
     //Métodos
     public void depositar(Decimal valor) {
-        if(valor > 0) {
-            this.saldo = this.saldo + valor;
-        }
+        ValidadorFinanceiro.validar(valor);
+        this.saldo = this.saldo + valor;
     }
 
     //Métodos abstratos
