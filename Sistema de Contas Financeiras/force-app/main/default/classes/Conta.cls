@@ -1,4 +1,4 @@
-public with sharing abstract class Conta {
+public abstract with sharing class Conta {
     public static Integer totalDeContas = 0;
 
     //Atributos
