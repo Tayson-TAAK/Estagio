@@ -1,6 +1,6 @@
 public with sharing class CadastroDeContas {
     //Atributos
-    List<Conta> contas = new List<Conta>();
+    private List<Conta> contas = new List<Conta>();
 
     //Construtor
     public CadastroDeContas() {
