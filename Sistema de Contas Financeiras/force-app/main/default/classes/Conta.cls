@@ -2,9 +2,9 @@ public with sharing abstract class Conta {
     public static Integer totalDeContas = 0;
 
     //Atributos
-    public Integer numeroConta;
-    public String nomeTitular;
-    public Decimal saldo;
+    private Integer numeroConta;
+    private String nomeTitular;
+    private Decimal saldo;
 
     //Construtor
     public Conta(Integer numeroConta, String nomeTitular) {
