@@ -1,0 +1,18 @@
+public String registerStudent(String name, String phone, String email) {
+    apxio__Student__c estudante = new apxio__Student__c();
+
+    estudante.Name = name;
+    estudante.apxio__Email__c = email;
+    estudante.apxio__Phone__c = phone;
+
+    insert estudante;
+
+    apxio__Student__c regNo = [
+        select apxio__Registration_Number__c 
+        from apxio__Student__c
+        where Id = :estudante.id
+    ];
+
+    return regNo.apxio__Registration_Number__c;
+
+}

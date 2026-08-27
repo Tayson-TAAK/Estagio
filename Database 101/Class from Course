@@ -1,0 +1,21 @@
+public Id classFromCourse(String courseName) {
+    List<apxio__Course__c> exists = new List<apxio__Course__c>();
+    exists = [
+        select Name
+        from apxio__Course__c
+        where Name = :courseName
+    ];
+    
+    if(exists.isEmpty()){
+        return null;
+    } else {
+        apxio__Class__c classe = new apxio__Class__c();
+
+        classe.Name = courseName;
+        classe.apxio__Course__c = exists[0].Id;
+
+        insert classe;
+
+        return classe.Id;
+    }
+}
