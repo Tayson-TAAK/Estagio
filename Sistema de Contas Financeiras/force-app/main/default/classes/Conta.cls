@@ -29,6 +29,15 @@ public abstract with sharing class Conta {
         this.saldo = this.saldo + valor;
     }
 
+    public void sacar(Decimal valor){
+        ValidadorFinanceiro.validar(valor);
+        if(getSaldo() < valor){
+            throw new SaldoInsuficienteException();
+        } else {
+            this.saldo = this.saldo - valor;
+        }
+    }
+
     //Métodos abstratos
     public abstract Decimal calcularTaxa();
 }
