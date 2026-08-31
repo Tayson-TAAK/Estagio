@@ -5,6 +5,10 @@
 // You can also execute the entire file by running the command:
 //     SFDX: Execute Anonymous Apex with Editor Contents
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+Conta conta = new ContaCorrente(1000, '123');
+
+try {
+    conta.sacar(5000);
+} catch (SaldoInsuficienteException e) {
+    System.debug(e.getMessage());
+}
