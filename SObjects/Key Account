@@ -1,0 +1,20 @@
+public Boolean isKeyAccount(Account a) {
+    switch on (Integer)a.AnnualRevenue{
+        when 600000 {
+            return true;
+        }
+        when 800000 {
+            return true;
+        }
+        when 2000000 {
+            return true;
+        }
+        when 500000 { 
+            return true;
+        }
+        when else {
+            return false;
+        }
+    }
+    
+}

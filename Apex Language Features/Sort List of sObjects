@@ -1,0 +1,29 @@
+public List<Account> getAccounts(List<Account> accounts) {
+    if(accounts == null)   
+        return accounts;
+    accounts.sort(new comparadorDeContas());
+    return accounts;
+}
+public class comparadorDeContas implements Comparator<Account> {
+    public Integer compare(Account acc1, Account acc2){
+        Integer valorRetorno = 0;
+
+        if(acc1 == null && acc2 == null)
+            valorRetorno = 0;
+        else if(acc1 == null)
+            valorRetorno = 1; 
+        else if(acc2 == null)
+            valorRetorno = -1;
+        else if ((acc1.AnnualRevenue == null) && (acc2.AnnualRevenue == null))
+            valorRetorno = 0;
+        else if (acc1.AnnualRevenue == null)
+            valorRetorno = 1;
+        else if (acc2.AnnualRevenue == null)
+            valorRetorno = -1;
+        else if (acc1.AnnualRevenue < acc2.AnnualRevenue)
+            valorRetorno = 1;
+        else if (acc1.AnnualRevenue > acc2.AnnualRevenue)
+            valorRetorno = -1;
+        return valorRetorno;
+    }
+}

@@ -1,0 +1,13 @@
+public void linkParent(Case c1, Case c2) {
+    if(c1.ContactId != null && c2.ContactId != null){
+        if(c1.ContactId == c2.ContactId ){
+            Date dataC1 = (c1.CreatedDate).date();
+            Date dataC2 = (c2.CreatedDate).date();
+            if(dataC1.daysBetween(dataC2) > 0 ){
+                c2.ParentId = c1.ID;
+            } else if (dataC1.daysBetween(dataC2) != 0){
+                c1.ParentId = c2.ID;
+            }
+        }
+    }
+}
