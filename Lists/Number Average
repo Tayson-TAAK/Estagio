@@ -1,0 +1,8 @@
+public Decimal average(List<Decimal> numbers){
+    Decimal somaTotal = 0;
+    for(Decimal n : numbers){
+        somaTotal += n;
+    }
+
+    return (somaTotal / numbers.size()).setScale(2);
+}
