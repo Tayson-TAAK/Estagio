@@ -1,0 +1,28 @@
+public static List<Contact> ContactDeduplicator(List<Contact> contacts) {
+    List<Contact> listaContatosUnicos = new List<Contact>();
+
+    Set<String> contatosUnicos = new Set<String>();
+
+    boolean flag = true;
+
+    if(contacts == null){
+        return listaContatosUnicos;
+    }
+
+
+    for(Contact c : contacts){
+        if(String.isEmpty(c.Email) == false){
+            if(!contatosUnicos.contains((c.Email).toLowerCase())){
+                contatosUnicos.add((c.Email).toLowerCase());
+                listaContatosUnicos.add(c);
+            }
+        }else{
+            if(flag == true){
+                contatosUnicos.add(null);
+                listaContatosUnicos.add(c);
+            }flag = false;
+        }
+    }
+
+    return listaContatosUnicos;
+}
