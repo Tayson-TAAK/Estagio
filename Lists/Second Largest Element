@@ -1,0 +1,9 @@
+public Integer secondLargest(List<Integer> numbers) {
+    numbers.sort();
+    Set<Integer> setNumeros = new Set<Integer>();
+    setNumeros.addAll(numbers);
+    List<Integer> listNumeros = new List<Integer>(setNumeros);
+
+    return listNumeros[listNumeros.size()-2];
+    
+}

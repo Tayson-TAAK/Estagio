@@ -1,0 +1,54 @@
+public boolean isSorted(List<Integer> numbers) {
+    if(numbers.size() < 3){
+        return true;
+    }
+
+    if(numbers[0] > numbers[1]){ //decrescente
+        for(Integer i = 0; i < numbers.size(); i++){
+            for(Integer x = i+1; x < numbers.size(); x++){
+                if(numbers[i] < numbers[x]){
+                    return false;
+                }
+            }
+        }
+    }
+
+    if(numbers[0] < numbers[1]){ //crescente
+        for(Integer i = 0; i < numbers.size(); i++){
+            for(Integer x = i+1; x < numbers.size(); x++){
+                if(numbers[i] > numbers[x]){
+                    return false;
+                }
+            }
+        }
+    }
+
+    if(numbers[0] == numbers[1]){
+        for(Integer k = 0; k < numbers.size(); k++){
+            for(Integer l = k+1; l < numbers.size(); l++){
+                if(numbers[k] != numbers[l]){
+                    if(numbers[k] > numbers[l]){ //decrescente
+                        for(Integer i = 0; i < numbers.size(); i++){
+                            for(Integer x = i+1; x < numbers.size(); x++){
+                                if(numbers[i] < numbers[x]){
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    if(numbers[k] < numbers[l]){ //crescente
+                        for(Integer i = 0; i < numbers.size(); i++){
+                            for(Integer x = i+1; x < numbers.size(); x++){
+                                if(numbers[i] > numbers[x]){
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
