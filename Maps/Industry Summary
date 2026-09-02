@@ -1,0 +1,8 @@
+public Map<String, Decimal> industrySummary(List<Account> accounts) {
+    Map<String, Decimal> industriaValor = new Map<String, Decimal>();
+    for(Account a : accounts){
+        industriaValor.put(a.Industry, industriaValor.get(a.Industry) == null ? a.AnnualRevenue :
+                                                                                industriaValor.get(a.Industry) + a.AnnualRevenue);
+    }
+    return industriaValor;
+}

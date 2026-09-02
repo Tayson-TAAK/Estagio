@@ -1,0 +1,10 @@
+public Map<String, Account> phoneToAccount(List<Account> accounts) {
+    Map<String, Account> listaContatos = new Map<String, Account>();
+
+    for(Account a : accounts){
+        if(a.Phone != null){
+            listaContatos.put(a.Phone, a);
+        }
+    }
+    return listaContatos;
+}
