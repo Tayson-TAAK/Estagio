@@ -1,0 +1,9 @@
+public static List<Integer> squareList(List<Integer> nums){
+    List<Integer> quadrado = new List<Integer>();
+    for(Integer num : nums){
+        quadrado.add((Integer)Math.pow(num, 2));
+    }
+    quadrado.sort();
+    
+    return quadrado;
+}

@@ -1,0 +1,10 @@
+public static String reverseWords(String str){
+    List<String> textoSeparado = new List<String>(str.split(' '));
+
+    List<String> inverso = new List<String>();
+
+    for(String palavra : textoSeparado){
+        inverso.add(palavra.reverse());
+    }
+    return String.join(inverso, ' ');
+}
