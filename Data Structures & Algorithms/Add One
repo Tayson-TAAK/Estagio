@@ -1,0 +1,25 @@
+public void plusOne(List<Integer> numbers) {
+    if(numbers != null){
+        Integer indexFinal = numbers.size()-1;
+        Integer comeco = 0;
+
+        for(Integer i = indexFinal; i >= 0; i--){
+            numbers[i] = numbers[i] + 1;
+            
+            if(numbers[i] == 10){
+                if(numbers[i] == 10 && i == 0){
+                    numbers[i] = 0;
+                    numbers.add(0, 1);
+                }
+                if(i != 0){
+                    numbers[i] = 0;
+                }
+                
+            }
+            else{
+                break;
+            }
+        }
+        
+    }
+}

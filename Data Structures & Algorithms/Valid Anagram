@@ -1,0 +1,20 @@
+public boolean isAnagram(String s1, String s2) {
+    if(s1 == null || s2 == null){
+        return false;
+    }
+    List<Integer> charS1 = new List<Integer>();
+    List<Integer> charS2 = new List<Integer>();
+
+    charS1.addAll(s1.getChars());
+    charS2.addAll(s2.getChars());
+
+    charS1.sort();
+    charS2.sort();
+
+    for(Integer i = 0; i < charS1.size(); i++){
+        if(charS1[i] != charS2[i]){
+            return false;
+        }
+    }return true;
+    
+}

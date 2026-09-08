@@ -1,0 +1,12 @@
+public Boolean isPalindrome(String str){
+    str = str.replaceAll('[^a-zA-Z]', '').toLowerCase();
+
+    Integer[] letrasOrdenadas = str.getChars();
+    Integer[] letrasInvertidas = str.reverse().getChars();
+    for(Integer i = 0; i < letrasOrdenadas.size()-1; i++){
+        if(letrasOrdenadas[i] != letrasInvertidas[i]){
+            return false;
+        }
+    }
+    return true;
+}

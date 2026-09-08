@@ -1,0 +1,6 @@
+public static List<Integer> mergeLists(List<Integer> list1, List<Integer> list2){
+    List<Integer> listaRetorno = new List<Integer>(list1);
+    listaRetorno.addAll(list2);
+    listaRetorno.sort();
+    return listaRetorno;
+}
