@@ -1,0 +1,18 @@
+public Integer maxProfit(List<Integer> prices){
+    Integer menor = prices[0];    
+    Integer maiorGanho = 0;
+    
+    for (Integer i = 1; i < prices.size(); i++) {
+        Integer precoAtual = prices[i];
+        if (precoAtual < menor) {
+            menor = precoAtual;
+        } else {
+            Integer ganhoAtual = precoAtual - menor;
+            if (ganhoAtual > maiorGanho) {
+                maiorGanho = ganhoAtual;
+            }
+        }
+    }
+    
+    return maiorGanho;
+}

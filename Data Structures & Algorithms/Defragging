@@ -1,0 +1,13 @@
+public void defragging(Integer[] memory){
+    Integer posicaoAtual = 0;
+    for (Integer i = 0; i < memory.size(); i++) {
+        if (memory[i] != -1) {
+            memory[posicaoAtual] = memory[i];
+            posicaoAtual++;
+        }
+    }
+
+    for (Integer i = posicaoAtual; i < memory.size(); i++) {
+        memory[i] = -1;
+    }
+}

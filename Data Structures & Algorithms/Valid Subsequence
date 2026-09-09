@@ -1,0 +1,19 @@
+public Boolean isSubSequence(String s1, String s2){
+    if (s1 == null || s2 == null) return false;
+
+    List<Integer> charS1 = s1.getChars();
+    List<Integer> charS2 = s2.getChars();
+
+    Integer indiceS1 = 0;
+    Integer indiceS2 = 0;
+
+    while(indiceS1 < charS1.size() && indiceS2 < charS2.size()){
+        if(charS1[indiceS1] == charS2[indiceS2]){
+            indiceS1++;
+        }
+        indiceS2++;
+        
+    }
+    return indiceS1 == charS1.size();
+
+}

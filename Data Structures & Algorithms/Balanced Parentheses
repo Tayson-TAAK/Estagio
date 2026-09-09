@@ -1,0 +1,30 @@
+public Boolean isValid(String s){
+    List<Integer> charString = s.getChars();
+    Integer countParenteses = 0;
+    Integer countChaves = 0;
+    Integer countColchetes = 0;
+
+    for(Integer i : charString){
+        switch on i{
+            when 40{
+                countParenteses++;
+            }
+            when 41{
+                countParenteses--;
+            }
+            when 91{
+                countColchetes++;
+            }
+            when 93{
+                countColchetes--;
+            }
+            when 123{
+                countChaves++;
+            }
+            when 125{
+                countChaves--;
+            }
+        }
+    }
+    return countParenteses == 0 && countColchetes == 0 && countChaves == 0;
+}
