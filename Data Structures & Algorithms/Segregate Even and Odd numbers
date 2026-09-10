@@ -1,0 +1,40 @@
+public static void segregateEvenOdd(List<Integer> numbers){
+    Integer countPar = 0;
+    Integer countImpar = 0;
+
+    for(Integer i = 0 ; i < numbers.size(); i++){
+        if(Math.mod(numbers[i], 2) == 0){
+            countPar++;
+        }else{
+            countImpar++;
+        }
+    }
+
+    Integer left = 0;
+    Integer right = numbers.size()-1;
+    while(countImpar != 0 && countPar != 0){
+
+        if(Math.mod(numbers[left], 2) == 0){
+            left++;
+            countPar--;
+        }
+        if(left == right) break;
+        
+        if(Math.mod(numbers[right], 2) != 0){
+            right--;
+            countImpar--;
+        }
+
+        if(Math.mod(numbers[left], 2) != 0 && Math.mod(numbers[right], 2) == 0){
+            Integer aux = numbers[left];
+
+            numbers[left] = numbers[right];
+            numbers[right] = aux;
+
+            left++;
+            countPar--;
+            right--;
+            countImpar--;
+        }
+    }
+}

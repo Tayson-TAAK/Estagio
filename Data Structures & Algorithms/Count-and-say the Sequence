@@ -1,0 +1,19 @@
+public string countAndSay(integer N) {
+    if(N == 1){
+        return '1';
+    }
+
+    String temp = countAndSay(N-1);
+
+    String texto = '';
+    Integer contador = 0;
+
+    for(Integer i=0; i < temp.length(); i++){
+        contador++;
+        if(i == (temp.length() - 1) || temp.charAt(i) != temp.charAt(i+1)){
+            texto += String.valueOf(contador) + temp.subString(i,i+1);
+            contador = 0;
+        }
+    }
+    return texto;
+}
