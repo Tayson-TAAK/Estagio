@@ -129,7 +129,7 @@ public with sharing class Restaurante {
             List<Reserva> reservasConfirmadas = new List<Reserva>();
             for(Restaurante restaurante : restaurantes){
                 for(Reserva reserva : restaurante.getReservas()){
-                    if(reserva.getCliente().getCpf() == cpf && reserva.getStatus() == StatusReserva.CONFIRMADA){
+                    if((reserva.getCliente()).getDocumento().getCpf() == cpf && reserva.getStatus() == StatusReserva.CONFIRMADA){
                         reservasConfirmadas.add(reserva);
                     }
                 }

@@ -1,18 +1,18 @@
 public with sharing class Mesa {
     //Atributos
-    private Integer numero;
-    private Integer capacidade;
+    private IdentificadorMesa numero;
+    private final QuantidadePessoas capacidade;
     private LocalMesa local;
     
     //Metodos de acesso
-    public Integer getNumero() { return numero; }
-    public Integer getCapacidade() { return capacidade; }
+    public IdentificadorMesa getNumero() { return numero; }
+    public Integer getCapacidade() { return capacidade.getQuantidade(); }
     public LocalMesa getLocal() { return local; }
 
     //Construtor
     public Mesa(Integer numero, Integer capacidade, LocalMesa local) {
-        this.numero = numero;
-        this.capacidade = capacidade;
+        this.numero = new IdentificadorMesa(numero);
+        this.capacidade = new QuantidadePessoas(capacidade);
         this.local = local;
     }
 }
