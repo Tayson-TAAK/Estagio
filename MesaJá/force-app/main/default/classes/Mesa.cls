@@ -6,7 +6,7 @@ public with sharing class Mesa {
     
     //Metodos de acesso
     public IdentificadorMesa getNumero() { return numero; }
-    public QuantidadePessoas getCapacidade() { return capacidade; }
+    public Integer getCapacidade() { return capacidade.getQuantidade(); }
     public LocalMesa getLocal() { return local; }
 
     //Construtor
