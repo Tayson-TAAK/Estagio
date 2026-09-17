@@ -71,7 +71,7 @@ public with sharing class Restaurante {
             }
             return null;
         } else {
-            Mesa mesaSelecionada = MenorMesaViavel.selecionarMesa(mesasDisponiveis, new QuantidadePessoas(quantidadePessoas), localPreferencia, periodo);
+            Mesa mesaSelecionada = new MenorMesaViavel().selecionarMesa(mesasDisponiveis, new QuantidadePessoas(quantidadePessoas), localPreferencia, periodo);
 
             for(Reserva r : reservas){
                 if(r.getMesa() == mesaSelecionada){
