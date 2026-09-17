@@ -48,6 +48,7 @@ public with sharing class Restaurante {
                 mesasDisponiveis.add(mesa);
             }
         }
+
         if(mesasDisponiveis.isEmpty()){
             System.debug('Não há mesas disponíveis para a reserva');
         } else {
@@ -58,7 +59,6 @@ public with sharing class Restaurante {
 
     public Reserva criarReserva(Cliente cliente, Integer quantidadePessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera){
         List<Mesa> mesasDisponiveis = buscarDisponibilidade(quantidadePessoas, localPreferencia);
-        Mesa mesaSelecionada = mesasDisponiveis.isEmpty() ? null : mesasDisponiveis[0];
         Reserva reserva;
         Boolean isReservada = false;
 
@@ -71,11 +71,7 @@ public with sharing class Restaurante {
             }
             return null;
         } else {
-            for (Mesa mesa : mesasDisponiveis){
-                if(mesa.getCapacidade() < mesaSelecionada.getCapacidade() ){
-                    mesaSelecionada = mesa;
-                }
-            }
+            Mesa mesaSelecionada = MenorMesaViavel.selecionarMesa(mesasDisponiveis, new QuantidadePessoas(quantidadePessoas), localPreferencia, periodo);
 
             for(Reserva r : reservas){
                 if(r.getMesa() == mesaSelecionada){
@@ -141,7 +137,7 @@ public with sharing class Restaurante {
     }
 
     //Classes Internas
-    public with sharing class Reserva {
+    private class Reserva {
         //Atributos
         private Cliente cliente;
         private Restaurante restaurante;
