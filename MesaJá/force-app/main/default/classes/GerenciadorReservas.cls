@@ -3,17 +3,17 @@ public with sharing class GerenciadorReservas {
     public GerenciadorReservas() {}
 
     //Metodos
-    public static Restaurante.Reserva criarReserva(Cliente cliente, Restaurante restaurante, Integer qtdPessoas, LocalMesa localPreferencia, PeriodoReserva periodo, StatusReserva status, boolean aceitaListaEspera) {
+    public static Restaurante.Reserva criarReserva(Cliente cliente, Restaurante restaurante, Integer qtdPessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera) {
         if(aceitaListaEspera){ 
-            Restaurante.Reserva reserva = new Restaurante.Reserva(cliente, restaurante, qtdPessoas, localPreferencia, periodo, StatusReserva.PENDENTE);
+            Restaurante.Reserva reserva = new Restaurante.Reserva(cliente, restaurante, qtdPessoas, localPreferencia, periodo, new EstadoPendente());
             restaurante.getListaEspera().add(reserva);
             System.debug('Reserva adicionada à lista de espera');
             return reserva;
         }
         return null;
     }
-    public static Restaurante.Reserva criarReserva(Cliente cliente, Restaurante restaurante, Mesa mesa, Integer qtdPessoas, LocalMesa localPreferencia, PeriodoReserva periodo, StatusReserva status) {
-        Restaurante.Reserva reserva = new Restaurante.Reserva(cliente, restaurante, mesa, qtdPessoas, localPreferencia, periodo, StatusReserva.CONFIRMADA);
+    public static Restaurante.Reserva criarReserva(Cliente cliente, Restaurante restaurante, Mesa mesa, Integer qtdPessoas, LocalMesa localPreferencia, PeriodoReserva periodo) {
+        Restaurante.Reserva reserva = new Restaurante.Reserva(cliente, restaurante, mesa, qtdPessoas, localPreferencia, periodo, new EstadoConfirmada());
         restaurante.getReservas().add(reserva);
         System.debug('Reserva confirmada com sucesso');
         return reserva;
