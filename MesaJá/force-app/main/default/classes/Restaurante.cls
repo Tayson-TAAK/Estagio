@@ -64,7 +64,7 @@ public with sharing class Restaurante {
 
         if(mesasDisponiveis.isEmpty()){
             System.debug('Não há mesas disponíveis para a reserva');
-            GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, StatusReserva.PENDENTE, aceitaListaEspera);
+            GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, aceitaListaEspera);
         } else {
             Mesa mesaSelecionada = new MenorMesaViavel().selecionarMesa(mesasDisponiveis, new QuantidadePessoas(quantidadePessoas), localPreferencia, periodo);
 
@@ -78,9 +78,9 @@ public with sharing class Restaurante {
 
             if(isReservada){
                 System.debug('Mesa já reservada para o período selecionado');
-                GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, StatusReserva.PENDENTE, aceitaListaEspera);
+                GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, aceitaListaEspera);
             } else {
-                GerenciadorReservas.criarReserva(cliente, this, mesaSelecionada, quantidadePessoas, localPreferencia, periodo, StatusReserva.CONFIRMADA);
+                GerenciadorReservas.criarReserva(cliente, this, mesaSelecionada, quantidadePessoas, localPreferencia, periodo);
             }
         }  
     }
@@ -96,7 +96,7 @@ public with sharing class Restaurante {
             List<Reserva> reservasConfirmadas = new List<Reserva>();
             for(Restaurante restaurante : restaurantes){
                 for(Reserva reserva : restaurante.getReservas()){
-                    if((reserva.getCliente()).getDocumento().getCpf() == cpf && reserva.getStatus() == StatusReserva.CONFIRMADA){
+                    if((reserva.getCliente()).getDocumento().getCpf() == cpf && reserva.getStatus().estadoAtual == 'CONFIRMADA'){
                         reservasConfirmadas.add(reserva);
                     }
                 }
@@ -116,7 +116,7 @@ public with sharing class Restaurante {
         private QuantidadePessoas qtdPessoa;
         private LocalMesa localPreferencia;
         private PeriodoReserva periodo;
-        private StatusReserva status;
+        private EstadoReserva status;
 
         //Metodos de acesso
         public Cliente getCliente() { return cliente; }
@@ -125,12 +125,12 @@ public with sharing class Restaurante {
         public QuantidadePessoas getQtdPessoa() { return qtdPessoa; }
         public LocalMesa getLocalPreferencia() { return localPreferencia; }
         public PeriodoReserva getPeriodo() { return periodo; }
-        public StatusReserva getStatus() { return status; }
+        public EstadoReserva getStatus() { return status; }
 
         //Construtor
         public Reserva(Cliente cliente, Restaurante restaurante, 
                     Mesa mesa, Integer qtdPessoa, LocalMesa localPreferencia, 
-                    PeriodoReserva periodo, StatusReserva status) {
+                    PeriodoReserva periodo, EstadoReserva status) {
             this.cliente = cliente;
             this.restaurante = restaurante;
             this.mesa = mesa;
@@ -141,7 +141,7 @@ public with sharing class Restaurante {
         }
         public Reserva(Cliente cliente, Restaurante restaurante, 
                     Integer qtdPessoa, LocalMesa localPreferencia, 
-                    PeriodoReserva periodo, StatusReserva status) {
+                    PeriodoReserva periodo, EstadoReserva status) {
             this.cliente = cliente;
             this.restaurante = restaurante;
             this.qtdPessoa = new QuantidadePessoas(qtdPessoa);
