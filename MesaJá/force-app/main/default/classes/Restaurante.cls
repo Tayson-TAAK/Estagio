@@ -57,19 +57,14 @@ public with sharing class Restaurante {
         return mesasDisponiveis;
     }
 
-    public Reserva criarReserva(Cliente cliente, Integer quantidadePessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera){
+    public void criarReserva(Cliente cliente, Integer quantidadePessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera){
         List<Mesa> mesasDisponiveis = buscarDisponibilidade(quantidadePessoas, localPreferencia);
         Reserva reserva;
         Boolean isReservada = false;
 
         if(mesasDisponiveis.isEmpty()){
             System.debug('Não há mesas disponíveis para a reserva');
-            if(aceitaListaEspera){ 
-                reserva = new Reserva(cliente, this, quantidadePessoas, localPreferencia, periodo, StatusReserva.PENDENTE);
-                listaEspera.add(reserva);
-                return reserva;
-            }
-            return null;
+            GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, StatusReserva.PENDENTE, aceitaListaEspera);
         } else {
             Mesa mesaSelecionada = new MenorMesaViavel().selecionarMesa(mesasDisponiveis, new QuantidadePessoas(quantidadePessoas), localPreferencia, periodo);
 
@@ -83,39 +78,15 @@ public with sharing class Restaurante {
 
             if(isReservada){
                 System.debug('Mesa já reservada para o período selecionado');
-                if(aceitaListaEspera){ 
-                    reserva = new Reserva(cliente, this, quantidadePessoas, localPreferencia, periodo, StatusReserva.PENDENTE);
-                    listaEspera.add(reserva);
-                }else{
-                    return null;
-                }
+                GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, StatusReserva.PENDENTE, aceitaListaEspera);
             } else {
-                reserva = new Reserva(cliente, this, mesaSelecionada, quantidadePessoas, localPreferencia, periodo, StatusReserva.CONFIRMADA);
-                reservas.add(reserva);
+                GerenciadorReservas.criarReserva(cliente, this, mesaSelecionada, quantidadePessoas, localPreferencia, periodo, StatusReserva.CONFIRMADA);
             }
-            return reserva;
         }  
     }
 
     public void cancelarReserva(Reserva reserva){
-        if(reservas.contains(reserva)){
-            reservas.remove(reservas.indexOf(reserva));
-            System.debug('Reserva cancelada com sucesso');
-
-            for(Reserva r : listaEspera){
-                if(r.getMesa() == reserva.getMesa() && r.getPeriodo() == reserva.getPeriodo()){
-                    reservas.add(r);
-                    listaEspera.remove(listaEspera.indexOf(r));
-                    System.debug('Reserva da lista de espera confirmada com sucesso');
-                    break;
-                }
-            }
-        } else if(listaEspera.contains(reserva)){
-            listaEspera.remove(listaEspera.indexOf(reserva));
-            System.debug('Reserva na lista de espera cancelada com sucesso');
-        } else {
-            System.debug('Reserva não encontrada'); 
-        }
+        GerenciadorReservas.cancelarReserva(reserva, this);
     }
 
     public static Map<String, List<Reserva>> gerarRelatorioReservasConfirmadasPorCpf(List<String> cpfs, List<Restaurante> restaurantes){
@@ -137,7 +108,7 @@ public with sharing class Restaurante {
     }
 
     //Classes Internas
-    private class Reserva {
+    public class Reserva {
         //Atributos
         private Cliente cliente;
         private Restaurante restaurante;
@@ -157,7 +128,7 @@ public with sharing class Restaurante {
         public StatusReserva getStatus() { return status; }
 
         //Construtor
-        private Reserva(Cliente cliente, Restaurante restaurante, 
+        public Reserva(Cliente cliente, Restaurante restaurante, 
                     Mesa mesa, Integer qtdPessoa, LocalMesa localPreferencia, 
                     PeriodoReserva periodo, StatusReserva status) {
             this.cliente = cliente;
@@ -168,7 +139,7 @@ public with sharing class Restaurante {
             this.periodo = periodo;
             this.status = status;
         }
-        private Reserva(Cliente cliente, Restaurante restaurante, 
+        public Reserva(Cliente cliente, Restaurante restaurante, 
                     Integer qtdPessoa, LocalMesa localPreferencia, 
                     PeriodoReserva periodo, StatusReserva status) {
             this.cliente = cliente;
