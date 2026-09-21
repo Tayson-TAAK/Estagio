@@ -1,10 +1,10 @@
 public with sharing class EstadoConfirmada extends EstadoReserva {
-    //Construtor
+    //Construtor ===========================================================================================================
     public EstadoConfirmada() {
         super('CONFIRMADA');
     }
 
-    //@Override Metodos
+    //@Override Metodos =====================================================================================================
     public override void cancelar(){
         this.estadoAtual = 'CANCELADA';
     }

@@ -17,13 +17,13 @@ restA.adicionarMesa(m3);
 restA.adicionarMesa(m4);
 restA.adicionarMesa(m5);
 
-Reserva resAna = restA.criarReserva(c1, 3, LocalMesa.SALAO, PeriodoReserva.NOITE, true);
-Reserva resBruno = restA.criarReserva(c2, 4, LocalMesa.SALAO, PeriodoReserva.NOITE, true);
-Reserva resCarla = restA.criarReserva(c3, 2, LocalMesa.SALAO, PeriodoReserva.NOITE, true);
+Restaurante.Reserva resAna = restA.criarReserva(c1, 3, LocalMesa.SALAO, PeriodoReserva.NOITE, true);
+Restaurante.Reserva resBruno = restA.criarReserva(c2, 4, LocalMesa.SALAO, PeriodoReserva.NOITE, true);
+Restaurante.Reserva resCarla = restA.criarReserva(c3, 2, LocalMesa.SALAO, PeriodoReserva.NOITE, true);
 
 restA.cancelarReserva(resAna);
 
 List<String> cpfsPesquisados = new List<String>{ '111.111.111-11', '222.222.222-22', '333.333.333-33' };
 List<Restaurante> listaRestaurantes = new List<Restaurante>{ restA, restB };
 
-Restaurante.gerarRelatorioReservasConfirmadasPorCpf(cpfsPesquisados, listaRestaurantes);
+RelatorioReservasService.gerarRelatorioReservasConfirmadasPorCpf(cpfsPesquisados, listaRestaurantes);

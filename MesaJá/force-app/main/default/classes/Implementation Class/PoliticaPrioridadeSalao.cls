@@ -1,5 +1,3 @@
 public with sharing class PoliticaPrioridadeSalao {
-    public PoliticaPrioridadeSalao() {
-
-    }
+    public PoliticaPrioridadeSalao() { }
 }

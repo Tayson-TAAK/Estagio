@@ -1,8 +1,8 @@
 public with sharing class GerenciadorReservas implements PoliticaPromocaoListaEspera{
-    //Construtor
+    //Construtor ===========================================================================================================
     public GerenciadorReservas() {}
 
-    //Metodos
+    //Metodos ==============================================================================================================
     public static Restaurante.Reserva criarReserva(Cliente cliente, Restaurante restaurante, Integer qtdPessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera) {
         if(aceitaListaEspera){ 
             Restaurante.Reserva reserva = new Restaurante.Reserva(cliente, restaurante, qtdPessoas, localPreferencia, periodo, new EstadoPendente());
@@ -18,6 +18,7 @@ public with sharing class GerenciadorReservas implements PoliticaPromocaoListaEs
         System.debug('Reserva confirmada com sucesso');
         return reserva;
     }
+    //---------------//
 
     public static void cancelarReserva(Restaurante.Reserva reserva, Restaurante restaurante) {
         if(restaurante.getReservas().contains(reserva)){
@@ -40,6 +41,7 @@ public with sharing class GerenciadorReservas implements PoliticaPromocaoListaEs
             System.debug('Reserva não encontrada'); 
         }
     }
+    //---------------//
 
     public static void ordenarListaEspera(Restaurante restaurante) {
         restaurante.getListaEspera().sort(new ReservaComparator()); 

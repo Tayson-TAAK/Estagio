@@ -1,5 +1,5 @@
 public with sharing class EstadoCancelada extends EstadoReserva{
-    //Construtor
+    //Construtor ===========================================================================================================
     public EstadoCancelada() {
         super('CANCELADA');
     }

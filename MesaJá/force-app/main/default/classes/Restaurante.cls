@@ -1,18 +1,18 @@
 public with sharing class Restaurante {
-    //Atributos
+    //Atributos ============================================================================================================
     private String nome, endereco;
     private List<Mesa> mesas;
     private List<Reserva> reservas;
     private List<Reserva> listaEspera;
 
-    //Metodos de acesso
+    //Metodos de acesso ====================================================================================================
     public String getNome() { return nome; }
     public String getEndereco() { return endereco; }
     public List<Mesa> getMesas() { return mesas; }
     public List<Reserva> getReservas() { return reservas; }
     public List<Reserva> getListaEspera() { return listaEspera; }
 
-    //Construtor
+    //Construtor ===========================================================================================================
     public Restaurante(String nome, String endereco) {
         this.nome = nome;
         this.endereco = endereco;
@@ -21,7 +21,7 @@ public with sharing class Restaurante {
         this.listaEspera = new List<Reserva>();
     }
 
-    //Metodos
+    //Metodos ==============================================================================================================
     public void adicionarMesa(Mesa mesa){
         if(mesa.getCapacidade() > 0){
             for(Mesa m : mesas){
@@ -40,6 +40,7 @@ public with sharing class Restaurante {
             adicionarMesa(mesa);
         }
     }
+    //---------------//
 
     public List<Mesa> buscarDisponibilidade(Integer quantidadePessoas, LocalMesa localPreferencia){
         List<Mesa> mesasDisponiveis = new List<Mesa>();
@@ -56,6 +57,7 @@ public with sharing class Restaurante {
         }
         return mesasDisponiveis;
     }
+    //---------------//
 
     public void criarReserva(Cliente cliente, Integer quantidadePessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera){
         List<Mesa> mesasDisponiveis = buscarDisponibilidade(quantidadePessoas, localPreferencia);
@@ -84,32 +86,15 @@ public with sharing class Restaurante {
             }
         }  
     }
+    //---------------//
 
     public void cancelarReserva(Reserva reserva){
         GerenciadorReservas.cancelarReserva(reserva, this);
     }
 
-    public static Map<String, List<Reserva>> gerarRelatorioReservasConfirmadasPorCpf(List<String> cpfs, List<Restaurante> restaurantes){
-        
-        Map<String, List<Reserva>> relatorio = new Map<String, List<Reserva>>();
-        for(String cpf : cpfs){
-            List<Reserva> reservasConfirmadas = new List<Reserva>();
-            for(Restaurante restaurante : restaurantes){
-                for(Reserva reserva : restaurante.getReservas()){
-                    if((reserva.getCliente()).getDocumento().getCpf() == cpf && reserva.getStatus().estadoAtual == 'CONFIRMADA'){
-                        reservasConfirmadas.add(reserva);
-                    }
-                }
-            }
-            relatorio.put(cpf, reservasConfirmadas);
-            System.debug('Relatório de reservas confirmadas para o CPF ' + cpf + ': ' + reservasConfirmadas);
-        }
-        return relatorio;
-    }
-
-    //Classes Internas
+    //Classes Internas =====================================================================================================
     public class Reserva {
-        //Atributos
+        //Atributos ========================================================================================================
         private Cliente cliente;
         private Restaurante restaurante;
         private Mesa mesa;
@@ -118,7 +103,7 @@ public with sharing class Restaurante {
         private PeriodoReserva periodo;
         private EstadoReserva status;
 
-        //Metodos de acesso
+        //Metodos de acesso ================================================================================================
         public Cliente getCliente() { return cliente; }
         public Restaurante getRestaurante() { return restaurante; }
         public Mesa getMesa() { return mesa; }
@@ -127,7 +112,7 @@ public with sharing class Restaurante {
         public PeriodoReserva getPeriodo() { return periodo; }
         public EstadoReserva getStatus() { return status; }
 
-        //Construtor
+        //Construtores =====================================================================================================
         public Reserva(Cliente cliente, Restaurante restaurante, 
                     Mesa mesa, Integer qtdPessoa, LocalMesa localPreferencia, 
                     PeriodoReserva periodo, EstadoReserva status) {

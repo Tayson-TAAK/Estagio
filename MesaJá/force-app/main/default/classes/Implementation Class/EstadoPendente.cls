@@ -1,10 +1,10 @@
 public with sharing class EstadoPendente extends EstadoReserva{
-    //Construtor
+    //Construtor ===========================================================================================================
     public EstadoPendente() {
         super('PENDENTE');
     }
 
-    //@Override Metodos
+    //@Override Metodos ====================================================================================================
     public override void cancelar(){
         this.estadoAtual = 'CANCELADA';
     }
