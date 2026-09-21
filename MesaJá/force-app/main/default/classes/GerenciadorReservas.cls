@@ -1,4 +1,4 @@
-public with sharing class GerenciadorReservas {
+public with sharing class GerenciadorReservas implements PoliticaPromocaoListaEspera{
     //Construtor
     public GerenciadorReservas() {}
 
@@ -28,6 +28,7 @@ public with sharing class GerenciadorReservas {
                 if(r.getMesa() == reserva.getMesa() && r.getPeriodo() == reserva.getPeriodo()){
                     restaurante.getReservas().add(r);
                     restaurante.getListaEspera().remove(restaurante.getListaEspera().indexOf(r));
+                    ordenarListaEspera(restaurante);
                     System.debug('Reserva da lista de espera confirmada com sucesso');
                     break;
                 }
@@ -38,5 +39,9 @@ public with sharing class GerenciadorReservas {
         } else {
             System.debug('Reserva não encontrada'); 
         }
+    }
+
+    public static void ordenarListaEspera(Restaurante restaurante) {
+        restaurante.getListaEspera().sort(new ReservaComparator()); 
     }
 }
