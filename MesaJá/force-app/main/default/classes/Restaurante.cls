@@ -59,14 +59,14 @@ public with sharing class Restaurante {
     }
     //---------------//
 
-    public void criarReserva(Cliente cliente, Integer quantidadePessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera){
+    public Restaurante.Reserva criarReserva(Cliente cliente, Integer quantidadePessoas, LocalMesa localPreferencia, PeriodoReserva periodo, boolean aceitaListaEspera){
         List<Mesa> mesasDisponiveis = buscarDisponibilidade(quantidadePessoas, localPreferencia);
         Reserva reserva;
         Boolean isReservada = false;
 
         if(mesasDisponiveis.isEmpty()){
             System.debug('Não há mesas disponíveis para a reserva');
-            GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, aceitaListaEspera);
+            return GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, aceitaListaEspera);
         } else {
             Mesa mesaSelecionada = new MenorMesaViavel().selecionarMesa(mesasDisponiveis, new QuantidadePessoas(quantidadePessoas), localPreferencia, periodo);
 
@@ -80,9 +80,9 @@ public with sharing class Restaurante {
 
             if(isReservada){
                 System.debug('Mesa já reservada para o período selecionado');
-                GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, aceitaListaEspera);
+                return GerenciadorReservas.criarReserva(cliente, this, quantidadePessoas, localPreferencia, periodo, aceitaListaEspera);
             } else {
-                GerenciadorReservas.criarReserva(cliente, this, mesaSelecionada, quantidadePessoas, localPreferencia, periodo);
+                return GerenciadorReservas.criarReserva(cliente, this, mesaSelecionada, quantidadePessoas, localPreferencia, periodo);
             }
         }  
     }
