@@ -1,1 +1,4 @@
-# Estagio
+# Estagio (MAIN)
+
+> [!WARNING]
+> NÃO FAZER DEPLOY NA MAIN
