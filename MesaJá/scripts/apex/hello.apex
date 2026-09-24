@@ -1,3 +1,4 @@
+//Criando clientes
 Cliente c1 = new Cliente('Ana Silva', '111.111.111-11');
 Cliente c2 = new Cliente('Bruno Costa', '222.222.222-22');
 Cliente c3 = new Cliente('Carla Souza', '333.333.333-33');
