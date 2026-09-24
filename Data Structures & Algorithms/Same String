@@ -1,0 +1,23 @@
+public static Boolean sameString(String str1, String str2){
+    str1 = tratar(str1);
+    str2 = tratar(str2);
+
+    return str1.equals(str2);
+}
+public static String tratar(String s){
+    List<String> sp = s.split('');
+    Integer i = sp.size() - 1, count = 0;
+    String res = '';
+
+    while (i >= 0){
+        if (sp.get(i) == '#')
+            count++;
+        else if (count > 0)
+            count--;
+        else res += sp.get(i);
+
+        i--;
+    }
+
+    return res;
+}

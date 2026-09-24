@@ -1,0 +1,35 @@
+public static Integer longestDistinctSubstring(String str, Integer k){ 
+    //Apelei para o gemini
+    if (str == null || str.length() == 0 || k <= 0) {
+        return 0;
+    }
+
+    Map<Integer, Integer> charCountMap = new Map<Integer, Integer>();
+    Integer left = 0;
+    Integer maxLength = 0;
+
+    for (Integer right = 0; right < str.length(); right++) {
+        Integer currentChar = str.charAt(right);
+
+        if (charCountMap.containsKey(currentChar)) {
+            charCountMap.put(currentChar, charCountMap.get(currentChar) + 1);
+        } else {
+            charCountMap.put(currentChar, 1);
+        }
+
+        while (charCountMap.size() > k) {
+            Integer leftChar = str.charAt(left);
+            Integer count = charCountMap.get(leftChar);
+            if (count == 1) {
+                charCountMap.remove(leftChar);
+            } else {
+                charCountMap.put(leftChar, count - 1);
+            }
+            left++;
+        }
+
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+
+    return maxLength;
+}

@@ -1,0 +1,52 @@
+public List<String> commonChars(List<String> strs){
+    //Apelei para o Gemini
+    if (strs == null || strs.isEmpty()) {
+        return new List<String>();
+    }
+
+    List<Integer> minFreq = new List<Integer>();
+    for (Integer i = 0; i < 26; i++) {
+        minFreq.add(0);
+    }
+
+    String firstStr = strs[0];
+    for (Integer i = 0; i < firstStr.length(); i++) {
+        Integer charCode = firstStr.charAt(i) - 97;
+        if (charCode >= 0 && charCode < 26) {
+            minFreq.set(charCode, minFreq.get(charCode) + 1);
+        }
+    }
+
+    for (Integer k = 1; k < strs.size(); k++) {
+        List<Integer> currentFreq = new List<Integer>();
+        for (Integer i = 0; i < 26; i++) {
+            currentFreq.add(0);
+        }
+
+        String s = strs[k];
+        for (Integer i = 0; i < s.length(); i++) {
+            Integer charCode = s.charAt(i) - 97;
+            if (charCode >= 0 && charCode < 26) {
+                currentFreq.set(charCode, currentFreq.get(charCode) + 1);
+            }
+        }
+
+        for (Integer i = 0; i < 26; i++) {
+            if (currentFreq.get(i) < minFreq.get(i)) {
+                minFreq.set(i, currentFreq.get(i));
+            }
+        }
+    }
+
+    List<String> result = new List<String>();
+    for (Integer i = 0; i < 26; i++) {
+        Integer count = minFreq.get(i);
+        while (count > 0) {
+            String ch = String.fromCharArray(new List<Integer>{ i + 97 });
+            result.add(ch);
+            count--;
+        }
+    }
+
+    return result;
+}
