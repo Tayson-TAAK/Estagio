@@ -1,12 +1,27 @@
 public with sharing class TaskTriggerHandler extends BaseTriggerHandler{
-    protected override void beforeInsert(){
-        List<Task> taskList = null;
+    protected override void beforeInsert() {
+        Set<Id> caseIds = new Set<Id>();
 
-        taskList = [SELECT WhatId FROM Task WHERE Status IN ('Not Started','In Progress', 'Waiting on someone else') 
-                                                  AND whatId NOT IN :this.newList];
+        for (Task novaTask : (List<Task>)this.newList) {
+            if (novaTask.WhatId != null) {
+                caseIds.add(novaTask.WhatId);
+            }
+        }
 
-        if(!(taskList.isEmpty())){
-            insert taskList;
+        Set<Id> casesTaskAberto = new Set<Id>();
+
+        for (Task taskAbertos : [SELECT WhatId
+                                 FROM Task
+                                 WHERE WhatId IN :caseIds
+                                 AND Status IN ('Not Started', 'In Progress', 'Waiting on someone else')]) 
+        {
+            casesTaskAberto.add(taskAbertos.WhatId);
+        }
+
+        for (Task novaTask : (List<Task>)this.newList) {
+            if (casesTaskAberto.contains(novaTask.WhatId)) {
+                novaTask.addError('Já existe uma tarefa em aberto nesse caso. Encerre-a antes de abrir uma nova');
+            }
         }
     }
 }
