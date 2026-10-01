@@ -1,0 +1,3 @@
+SELECT IsoCode
+  FROM CurrencyType
+  WHERE IsActive = true
