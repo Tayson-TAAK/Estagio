@@ -1,4 +1,3 @@
-# Estagio (MAIN)
+# Desafio Trigger 0
 
-> [!WARNING]
-> NÃO FAZER DEPLOY NA MAIN
+[Desafio - Trigger.pptx.pdf](https://github.com/user-attachments/files/32926722/Desafio.-.Trigger.pptx.1.pdf)
