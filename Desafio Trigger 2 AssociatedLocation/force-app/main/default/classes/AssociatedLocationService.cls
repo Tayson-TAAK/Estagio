@@ -42,7 +42,7 @@ public with sharing class AssociatedLocationService {
         }
     }
 
-    public void afterUpdateUser(){
+    public void afterUpdate_ChangeUser(){
         /*
             Testar se esta funcionando conforme solicitado no documento
          */
@@ -75,10 +75,9 @@ public with sharing class AssociatedLocationService {
         insert addATM;
     }
 
-    public void afterUpdateAccount(){
+    public void afterUpdate_ChangeAccount(){
         Map<Id, AssociatedLocation> alMapNovo = (Map<Id, AssociatedLocation>) this.newMap;
         Map<Id, AssociatedLocation> alMapAntigo = (Map<Id, AssociatedLocation>) this.oldMap;
-
 
         Set<Id> chaves = alMapNovo.keySet();
         Boolean flag;
@@ -90,12 +89,45 @@ public with sharing class AssociatedLocationService {
             }
             
             if(!flag){
-                List<AssociatedLocation> auxAl = [SELECT Id, User__c 
+                Integer qtdAL_Id_Antigo = [SELECT COUNT() 
                                                   FROM AssociatedLocation 
                                                   WHERE User__c = :alMapAntigo.get(i).User__c];
-                
+
+                if(qtdAL_Id_Antigo == 1){
+                    //remover o User da Account antiga e adicionado na Account nova.
+                }
                 
             }
         }
+    }
+
+    public void afterDelete(){
+        List<AssociatedLocation> deletedList = this.oldList;
+
+        List<Id> parentToDelete = null;
+        for(AssociatedLocation del : deletedList){
+            parentToDelete.add(del.ParentRecordId);
+        }
+
+        List<Account> accList = [SELECT Id FROM Account WHERE Id IN :parentToDelete];
+
+        List<AssociatedLocation> alList = [SELECT ParentRecordId FROM AssociatedLocation];
+
+        List<AssociatedLocation> deletar = null;
+        Integer contador = 0;
+        for(Account acc : accList){
+            contador = 0;
+            for(AssociatedLocation al : alList){
+                if(acc.OwnerId == al.User__c){
+                    contador++;
+
+                    if(contador == 2){
+                        deletar.add(al);
+                    }
+                }
+            }
+        }
+
+        delete deletar;
     }
 }
