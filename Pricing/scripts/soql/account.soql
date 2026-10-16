@@ -4,6 +4,5 @@
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
 
-SELECT Product__c, Status__c
-  FROM Tax__c
-  LIMIT 0
+SELECT Id, Name, ProductCode, Product_Hierarchy__c, Production_Cost__c
+  FROM Product2
