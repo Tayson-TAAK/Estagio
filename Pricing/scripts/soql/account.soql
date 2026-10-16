@@ -3,4 +3,7 @@
 //     query text and running the command:
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
-SELECT Id, Name FROM Account
+
+SELECT Product__c, Status__c
+  FROM Tax__c
+  LIMIT 0
