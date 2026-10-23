@@ -24,8 +24,54 @@ public with sharing class ProductService {
         }
     }
 
-    public void beforeInsert(){
-        Integer qtdMargin = [SELECT COUNT() FROM Margin__c WHERE Product__c IN :this.newMap.keySet()];
+    public void afterInsert(){        
+        List<Pricebook2> listPricebook = [SELECT Id, IsStandard FROM Pricebook2 WHERE IsActive = true];
+
+        List<Pricebook2> standard = new List<Pricebook2>();
+        List<Pricebook2> standardPricebook = new List<Pricebook2>();
+
+        for(Pricebook2 pb : listPricebook){
+            if(pb.IsStandard == true){
+                standard.add(pb);
+            } else  { 
+                standardPricebook.add(pb);
+            }
+        }
+
+        List<PricebookEntry> addStandard = new List<PricebookEntry>();
+        List<PricebookEntry> addStandardPricebook = new List<PricebookEntry>();
+
+        for(Product2 p : this.newList){
+            for(Pricebook2 pb : standard){
+                PricebookEntry priceEntry = new PricebookEntry();
+                priceEntry.Pricebook2Id = pb.Id;
+                priceEntry.Product2Id = p.Id;
+                priceEntry.IsActive = true;
+                priceEntry.UseStandardPrice = false;
+                priceEntry.UnitPrice = p.Production_Cost__c;
+                addStandard.add(priceEntry);
+            }
+            
+            for(Pricebook2 pb : standardPricebook){
+                PricebookEntry priceEntry = new PricebookEntry();
+                priceEntry.Pricebook2Id = pb.Id;
+                priceEntry.Product2Id = p.Id;
+                priceEntry.IsActive = true;
+                priceEntry.UseStandardPrice = true;
+                priceEntry.UnitPrice = p.Production_Cost__c;
+                addStandardPricebook.add(priceEntry);
+            }
+        }
+        if (!addStandard.isEmpty()) {
+            insert addStandard;
+            if (!addStandardPricebook.isEmpty()) {
+                insert addStandardPricebook;
+            }
+        }
+    }
+
+    public void beforeUpdate(){
+        Integer qtdMargin = [SELECT COUNT() FROM Margin__c WHERE Product__c IN :this.newMap.keySet()];  
         Integer qtdFreight = [SELECT COUNT() FROM Freight__c WHERE Product__c IN :this.newMap.keySet()];
         Integer qtdTax = [SELECT COUNT() FROM Tax__c WHERE Product__c IN :this.newMap.keySet()];
 
@@ -43,8 +89,5 @@ public with sharing class ProductService {
                 p.addError('No Tax record found for this Product');
             }
         }
-    }
-
-    public void beforeUpdate(){   
     }
 }

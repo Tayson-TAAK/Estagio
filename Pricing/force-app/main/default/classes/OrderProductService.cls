@@ -44,11 +44,11 @@ public with sharing class OrderProductService {
         //City / State / Country ---------------------------------------------------------------------------
         Set<Id> accountIds = new Set<Id>();
         Set<Id> accountGroupIds = new Set<Id>();
-        for (Order ord : orderMap.values()) {
-            if (ord.AccountId != null) {
-                accountIds.add(ord.AccountId);
-                if (ord.Account.Account_Group__c != null) {
-                    accountGroupIds.add(ord.Account.Account_Group__c);
+        for (Order order : orderMap.values()) {
+            if (order.AccountId != null) {
+                accountIds.add(order.AccountId);
+                if (order.Account.Account_Group__c != null) {
+                    accountGroupIds.add(order.Account.Account_Group__c);
                 }
             }
         }
@@ -81,7 +81,7 @@ public with sharing class OrderProductService {
         List<Tax__c> taxApproved = new List<Tax__c>();
         taxApproved = [SELECT Id, Product__c, Tax_on_Cost__c 
                        FROM Tax__c 
-                       WHERE Product__c IN :productIds AND Status__c = 'Aprovado' ];
+                       WHERE Product__c IN :productIds AND Status__c = 'Approved' ];
         for (Tax__c t : taxApproved) {
             taxByProductId.put(t.Product__c, t);
         }
@@ -90,20 +90,25 @@ public with sharing class OrderProductService {
         List<Freight__c> listFreight = new List<Freight__c>();
         listFreight = [ SELECT Id, Value__c, Product__c, Product_Hierarchy__c, City__c, State__c, Country__c, CreatedDate
                         FROM Freight__c 
-                        WHERE Status__c = 'Aprovado'
+                        WHERE Status__c = 'Approved'
                         AND (Product__c IN :productIds OR Product_Hierarchy__c IN :productHierarchyIds OR City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
         
         //Margem
         List<Margin__c> listMargin = new List<Margin__c>();
         listMargin = [  SELECT Id, Value__c, Product__c, Product_Hierarchy__c, Account__c, Account_Group__c, City__c, State__c, Country__c, CreatedDate
                         FROM Margin__c 
-                        WHERE Status__c = 'Aprovado'
+                        WHERE Status__c = 'Approved'
                         AND (Product__c IN :productIds OR Product_Hierarchy__c IN :productHierarchyIds OR Account__c IN :accountIds OR Account_Group__c IN :accountGroupIds OR City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
 
         //Adicionando os valores nos campos correspondentes ------------------------------------------------
         for (OrderItem orderP : itemsToProcess) {
             Product2 product = productMap.get(orderP.Product2Id);
             Order order = orderMap.get(orderP.OrderId);
+
+            //Verificando se status de order esta ativo
+            if(order.Status == 'Activated'){
+                orderP.addError('Não é permitido alterar o pedido pois esta ativo');
+            }
             
             Account_Address__c address = null;
             if(order != null){
