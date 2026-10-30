@@ -8,17 +8,19 @@ public with sharing class OrderService {
         this.newList = (List<Order>) triggerHandler.newList;
         this.oldList = (List<Order>) triggerHandler.oldList;
     }
-    public void beforeUpdate(){
-        List<Order> listOrder = this.newList;
-        List<Id> listOrderID = new List<Id>();
 
-        for(Order o : listOrder){
+    public void beforeUpdate(){
+        List<Id> listOrderID = new List<Id>();
+        List<Id> listAccountID = new List<Id>();
+
+        for(Order o : this.newList){
             listOrderID.add(o.Id);
+            listAccountID.add(o.AccountId);
         }
 
         List<OrderItem> listOrderItem = [SELECT Final_Price__c, OrderId FROM OrderItem WHERE orderId IN : listOrderID];
 
-        for(Order o : listOrder){
+        for(Order o : this.newList){
             o.Total_Price_with_Tax__c = 0;
             for(OrderItem orderP : listOrderItem){
                 if(orderP.OrderId == o.Id){

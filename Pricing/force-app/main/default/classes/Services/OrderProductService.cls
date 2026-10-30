@@ -81,7 +81,8 @@ public with sharing class OrderProductService {
         List<Tax__c> taxApproved = new List<Tax__c>();
         taxApproved = [SELECT Id, Product__c, Tax_on_Cost__c 
                        FROM Tax__c 
-                       WHERE Product__c IN :productIds AND Status__c = 'Approved' ];
+                       WHERE Product__c IN :productIds AND Status__c = 'Approved' 
+                       ORDER BY Tax_on_Cost__c];
         for (Tax__c t : taxApproved) {
             taxByProductId.put(t.Product__c, t);
         }
