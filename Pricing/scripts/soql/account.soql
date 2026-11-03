@@ -4,5 +4,5 @@
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
 
-SELECT Distribution_Center__c, Duplicate_Control_ID__c, Name, Product__c, State__c, Status__c, Tax_on_Cost__c
-  FROM Tax__c
+SELECT AccountNumber, AccountSource, Account_Group__c, Active__c, AnnualRevenue, BillingAddress, BillingCity, BillingCountry, BillingCountryCode, BillingGeocodeAccuracy, BillingLatitude, BillingLongitude, BillingPostalCode, BillingState, BillingStateCode, BillingStreet, CNPJ__c, CleanStatus, CreatedById, CreatedDate, CustomerPriority__c, DandbCompanyId, Description, DunsNumber, Fax, Industry, IsDeleted, Jigsaw, JigsawCompanyId, LastActivityDate, LastModifiedById, LastModifiedDate, LastReferencedDate, LastViewedDate, MasterRecordId, NaicsCode, NaicsDesc, Name, NumberOfEmployees, NumberofLocations__c, OperatingHoursId, OwnerId, Ownership, ParentId, Phone, PhotoUrl, Rating, SLAExpirationDate__c, SLASerialNumber__c, SLA__c, ShippingAddress, ShippingCity, ShippingCountry, ShippingCountryCode, ShippingGeocodeAccuracy, ShippingLatitude, ShippingLongitude, ShippingPostalCode, ShippingState, ShippingStateCode, ShippingStreet, Sic, SicDesc, Site, SystemModstamp, TickerSymbol, Tradestyle, Type, UpsellOpportunity__c, Website, YearStarted
+  FROM Account

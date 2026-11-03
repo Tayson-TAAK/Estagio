@@ -92,14 +92,17 @@ public with sharing class OrderProductService {
         listFreight = [ SELECT Id, Value__c, Product__c, Product_Hierarchy__c, City__c, State__c, Country__c, CreatedDate
                         FROM Freight__c 
                         WHERE Status__c = 'Approved'
-                        AND (Product__c IN :productIds OR Product_Hierarchy__c IN :productHierarchyIds OR City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
+                        AND (Product__c IN :productIds OR Product_Hierarchy__c IN :productHierarchyIds) 
+                        AND (City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
         
         //Margem
         List<Margin__c> listMargin = new List<Margin__c>();
         listMargin = [  SELECT Id, Value__c, Product__c, Product_Hierarchy__c, Account__c, Account_Group__c, City__c, State__c, Country__c, CreatedDate
                         FROM Margin__c 
                         WHERE Status__c = 'Approved'
-                        AND (Product__c IN :productIds OR Product_Hierarchy__c IN :productHierarchyIds OR Account__c IN :accountIds OR Account_Group__c IN :accountGroupIds OR City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
+                        AND (Product__c IN :productIds OR Product_Hierarchy__c IN :productHierarchyIds)
+                        AND (Account__c IN :accountIds OR Account_Group__c IN :accountGroupIds)
+                        AND (City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
 
         //Adicionando os valores nos campos correspondentes ------------------------------------------------
         for (OrderItem orderP : itemsToProcess) {
@@ -108,7 +111,7 @@ public with sharing class OrderProductService {
 
             //Verificando se status de order esta ativo
             if(order.Status == 'Activated'){
-                orderP.addError('Não é permitido alterar o pedido pois esta ativo');
+                orderP.addError('[!] It is not permitted to modify the order, as it is currently active [!]');
             }
             
             Account_Address__c address = null;
@@ -121,7 +124,7 @@ public with sharing class OrderProductService {
             if (taxByProductId.containsKey(orderP.Product2Id)) {
                 orderP.TaxPercentage__c = taxByProductId.get(orderP.Product2Id).Tax_on_Cost__c;
             } else {
-                orderP.addError('Não está autorizada a venda deste produto devido à falta de parâmetros. Contate o time de Pricing.');
+                orderP.addError('[!] The sale of this product is not authorized due to a lack of parameters. Please contact the Pricing team [!]');
                 continue;
             }
             
