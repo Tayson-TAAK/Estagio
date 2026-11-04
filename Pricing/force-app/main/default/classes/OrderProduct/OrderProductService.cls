@@ -124,7 +124,7 @@ public with sharing class OrderProductService {
             if (taxByProductId.containsKey(orderP.Product2Id)) {
                 orderP.TaxPercentage__c = taxByProductId.get(orderP.Product2Id).Tax_on_Cost__c;
             } else {
-                orderP.addError('[!] The sale of this product is not authorized due to a lack of parameters. Please contact the Pricing team [!]');
+                orderP.addError('[!] The sale of this product is not authorized due to a lack of parameters (Tax). Please contact the Pricing team [!]');
                 continue;
             }
             
@@ -132,7 +132,7 @@ public with sharing class OrderProductService {
             Decimal freightVal = null;
             for (Freight__c f : listFreight) {
                 if (
-                    (f.Product__c == orderP.Product2Id) || (product != null && f.Product_Hierarchy__c == product.Product_Hierarchy__c) || 
+                    (f.Product__c == orderP.Product2Id) || (product != null && f.Product_Hierarchy__c == product.Product_Hierarchy__c) && 
                     (address != null) && (f.City__c == address.City__c || f.State__c == address.City__r.State__c || f.Country__c == address.City__r.State__r.Country__c)
                 ){
                     freightVal = f.Value__c;
@@ -142,7 +142,7 @@ public with sharing class OrderProductService {
             if (freightVal != null) {
                 orderP.FreightValue__c = freightVal;
             } else {
-                orderP.addError('Não está autorizada a venda deste produto devido à falta de parâmetros. Contate o time de Pricing.');
+                orderP.addError('[!] The sale of this product is not authorized due to a lack of parameters (Freight). Please contact the Pricing team [!]');
                 continue;
             }
 
@@ -150,8 +150,8 @@ public with sharing class OrderProductService {
             Decimal marginPercent = null;
             for (Margin__c m : listMargin) {
                 if (
-                    (m.Product__c == orderP.Product2Id) || (product != null && m.Product_Hierarchy__c == product.Product_Hierarchy__c) || 
-                    (order != null) && (m.Account__c == order.AccountId || m.Account_Group__c == order.Account.Account_Group__c) || 
+                    (m.Product__c == orderP.Product2Id) || (product != null && m.Product_Hierarchy__c == product.Product_Hierarchy__c) && 
+                    (order != null) && (m.Account__c == order.AccountId || m.Account_Group__c == order.Account.Account_Group__c) &&
                     (address != null) && (m.City__c == address.City__c || m.State__c == address.City__r.State__c || m.Country__c == address.City__r.State__r.Country__c)
                 ){
                     marginPercent = m.Value__c;
@@ -161,7 +161,7 @@ public with sharing class OrderProductService {
             if (marginPercent != null) {
                 orderP.MarginPercentage__c = marginPercent;
             } else {
-                orderP.addError('Não está autorizada a venda deste produto devido à falta de parâmetros. Contate o time de Pricing.');
+                orderP.addError('[!] The sale of this product is not authorized due to a lack of parameters (Margin). Please contact the Pricing team [!]');
                 continue;
             }
         }
