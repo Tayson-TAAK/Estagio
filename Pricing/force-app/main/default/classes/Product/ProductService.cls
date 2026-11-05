@@ -24,7 +24,9 @@ public with sharing class ProductService {
         }
     }
 
-    public void afterInsert(){        
+    public void afterInsert(){ 
+        
+        //Tentativa Falha -----------------------------------------------------------------------------------
         List<Pricebook2> listPricebook = [SELECT Id, IsStandard FROM Pricebook2 WHERE IsActive = true];
 
         List<Pricebook2> standard = new List<Pricebook2>();

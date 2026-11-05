@@ -35,7 +35,7 @@ public with sharing class FreightService {
             for(Freight__c freight : this.newList){
                 for(Freight__c freightOnOrg : freightDuplicatedOnOrg){
                     if(freight.Duplicate_Control_ID__c == freightOnOrg.Duplicate_Control_ID__c){
-                        freight.addError('There is already a freight with these specific characteristics');
+                        freight.addError('[!] There is already a freight with these specific characteristics [!]');
                     }
                 }
             }

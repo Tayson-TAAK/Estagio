@@ -10,12 +10,12 @@ public with sharing class OrderProductService {
     }
     
     public void beforeInsert() {
-        List<OrderItem> itemsToProcess = this.newList;
+        List<OrderItem> orderToProcess = this.newList;
         Set<Id> productIds = new Set<Id>();
         Set<Id> orderIds = new Set<Id>();
         
         //Pegando Ids de produto e pedido relacionados a ordemItem ------------------------------------------
-        for (OrderItem item : itemsToProcess) {
+        for (OrderItem item : orderToProcess) {
             if (item.Product2Id != null) { 
                 productIds.add(item.Product2Id);
             }
@@ -101,7 +101,7 @@ public with sharing class OrderProductService {
                                         AND (City__c IN :cityIds OR State__c IN :stateIds OR Country__c IN :countryIds) ];
 
         //Adicionando os valores nos campos correspondentes -------------------------------------------------
-        for (OrderItem orderP : itemsToProcess) {
+        for (OrderItem orderP : orderToProcess) {
             Product2 product = productMap.get(orderP.Product2Id);
             Order order = orderMap.get(orderP.OrderId);
 

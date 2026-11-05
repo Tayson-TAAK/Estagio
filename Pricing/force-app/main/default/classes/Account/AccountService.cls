@@ -14,7 +14,7 @@ public with sharing class AccountService {
             String cnpjCleaned = acc.CNPJ__c.trim().replaceAll('[./-]', '').toUpperCase();
             
             if(cnpjCleaned.length() != 14){
-                acc.addError('CNPJ has an invalid length');
+                acc.addError('[!] CNPJ has an invalid length [!]');
             } else { 
                 List<Integer> charsCNPJ = cnpjCleaned.getChars();
 
@@ -43,7 +43,7 @@ public with sharing class AccountService {
 
                 //Verifica se os digitos calculados batem com o digito fornecido pelo usuario -------------------------
                 if(firstDigit != (charsCNPJ[12] - 48) || secondDigit != (charsCNPJ[13] - 48)){
-                    acc.addError('Invalid CNPJ');
+                    acc.addError('[!] Invalid CNPJ [!]');
                 } else {
                     acc.CNPJ__c = cnpjCleaned;
                 }

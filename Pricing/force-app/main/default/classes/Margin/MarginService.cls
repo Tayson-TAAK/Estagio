@@ -38,7 +38,7 @@ public with sharing class MarginService {
             for(Margin__c margin : this.newList){
                 for(Margin__c marginOnOrg : marginsDuplicatedOnOrg){
                     if(margin.Duplicate_Control_ID__c == marginOnOrg.Duplicate_Control_ID__c){
-                        margin.addError('There is already a margin with these specific characteristics');
+                        margin.addError('[!] There is already a margin with these specific characteristics [!]');
                     }
                 }
             }

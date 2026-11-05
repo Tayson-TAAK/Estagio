@@ -35,7 +35,7 @@ public with sharing class TaxService {
             for(Tax__c tax : this.newList){
                 for(Tax__c taxOnOrg : taxDuplicatedOnOrg){
                     if(tax.Duplicate_Control_ID__c == taxOnOrg.Duplicate_Control_ID__c){
-                        tax.addError('There is already a tax with these specific characteristics');
+                        tax.addError('[!] There is already a tax with these specific characteristics [!]');
                     }
                 }
             }
