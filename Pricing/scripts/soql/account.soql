@@ -4,5 +4,5 @@
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
 
-SELECT Account_Group__c, Account__c, City__c, Country__c, Distribution_Center__c, Name, Product_Hierarchy__c, Product__c, State__c, Status__c, Value__c
-  FROM Margin__c
+SELECT AccountId, Address__c, BillingAddress, BillingCity, BillingCountry, BillingCountryCode, BillingGeocodeAccuracy, BillingLatitude, BillingLongitude, BillingPostalCode, BillingState, BillingStateCode, BillingStreet, CompanyAuthorizedById, CompanyAuthorizedDate, ContractId, CreatedById, CreatedDate, CustomerAuthorizedById, CustomerAuthorizedDate, Delivery_Date__c, Description, Distribution_Center__c, EffectiveDate, EndDate, Id, IsDeleted, IsReductionOrder, LastModifiedById, LastModifiedDate, LastReferencedDate, LastViewedDate, Name, OrderNumber, OrderReferenceNumber, OriginalOrderId, OwnerId, Payment_Term__c, PoDate, PoNumber, Pricebook2Id, ShipToContactId, ShippingAddress, ShippingCity, ShippingCountry, ShippingCountryCode, ShippingGeocodeAccuracy, ShippingLatitude, ShippingLongitude, ShippingPostalCode, ShippingState, ShippingStateCode, ShippingStreet, Shipping_Method__c, Status, StatusCode, SystemModstamp, TotalAmount, Total_Price_with_Tax__c, Type
+  FROM Order
