@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/query}}?q=SELECT Id, Name, Phone, ExternalId__c, (SELECT Id, Name FROM Contacts) FROM Account WHERE ExternalId__c = '{{externalId}}'"
+method: GET
+queryParams:
+  q: SELECT Id, Name, Phone, ExternalId__c, (SELECT Id, Name FROM Contacts) FROM Account WHERE ExternalId__c = '{{externalId}}'
+order: 3000

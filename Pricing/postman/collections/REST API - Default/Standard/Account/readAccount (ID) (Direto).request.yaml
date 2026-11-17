@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/sobjects}}/Account/id/{{id}}"
+method: GET
+order: 4000

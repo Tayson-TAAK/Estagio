@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/sobjects}}/Account/ExternalId__c/{{externalId}}"
+method: GET
+order: 2000

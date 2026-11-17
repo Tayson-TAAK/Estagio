@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite/sobjects/Order/?ids={{id}}&fields=Id, AccountId, TotalAmount"
+method: GET
+queryParams:
+  ids: "{{id}}"
+  fields: Id, AccountId, TotalAmount
+body:
+  type: json
+  content: ""
+order: 4000

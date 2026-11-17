@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/sobjects}}/Account/ExternalId__c/{{externalId}}"
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "Name": "{{name}}",
+        "Phone": "{{phone}}",
+        "Website": "{{website}}",
+        "Industry": "{{industry}}",
+        "NumberOfEmployees": {{numberEmployees}}
+    }
+order: 5000

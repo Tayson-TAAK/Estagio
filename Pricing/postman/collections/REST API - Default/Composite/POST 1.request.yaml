@@ -1,0 +1,78 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite/"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+    	"allOrNone": true,
+    	"compositeRequest": [
+    		{
+    			"method": "POST",
+    			"url": "/{{uri/sobjects}}/Account",
+    			"referenceId": "refAccount",
+    			"body": {
+    				"Name": "{{name_Account}}",
+    				"Phone": "{{phone_Account}}",
+    				"ExternalId__c": "{{externalID_Account}}",
+    				"NumberOfEmployees": {{numberEmployees_Account}},
+    				"Industry": "{{industry_Account}}",
+    				"CNPJ__c": "{{cnpj_Account}}",
+    				"Account_Group__c": "{{accountGroupID}}"
+    			}
+    		},
+    		{
+    			"method": "GET",
+    			"url": "/{{uri/sobjects}}/Pricebook2/ExternalId__c/{{externalID_Pricebook}}",
+    			"referenceId": "refPricebook2"
+    		},
+    		{
+    			"method": "GET",
+    			"url": "/{{uri/query}}/?q=SELECT+Id+FROM+PricebookEntry+WHERE+Pricebook2Id='@{refPricebook2.Id}'+AND+Product2.ExternalId__c='{{externalID_Product1}}'+AND+IsActive=true+LIMIT+1",
+    			"referenceId": "refEntry1"
+    		},
+    		{
+    			"method": "GET",
+    			"url": "/{{uri/query}}/?q=SELECT+Id+FROM+PricebookEntry+WHERE+Pricebook2Id='@{refPricebook2.Id}'+AND+Product2.ExternalId__c='{{externalID_Product2}}'+AND+IsActive=true+LIMIT+1",
+    			"referenceId": "refEntry2"
+    		},
+    		{
+    			"method": "POST",
+    			"url": "/{{uri/sobjects}}/Order",
+    			"referenceId": "refOrder",
+    			"body": {
+    				"ExternalId__c": "",
+    				"AccountId": "@{refAccount.id}",
+    				"Status": "",
+    				"EffectiveDate": "",
+    				"Pricebook2Id": "@{refPricebook2.Id}"
+    			}
+    		},
+    		{
+    			"method": "POST",
+    			"url": "/{{uri/sobjects}}/OrderItem",
+    			"referenceId": "refOrderItem1",
+    			"body": {
+    				"ExternalId__c": "",
+    				"OrderId": "@{refOrder.id}",
+    				"Quantity": "",
+    				"UnitPrice": "",
+    				"PriceBookEntryId": "@{refEntry1.records[0].id}" 
+    			}
+    		},
+    		{
+    			"method": "POST",
+    			"url": "/{{uri/sobjects}}/OrderItem",
+    			"referenceId": "refOrderItem2",
+    			"body": {
+    				"ExternalId__c": "",
+    				"OrderId": "@{refOrder.id}",
+    				"Quantity": "",
+    				"UnitPrice": "",
+    				"PriceBookEntryId": "@{refEntry2.records[0].id}"
+    			}
+    		}
+
+    	]
+    }
+order: 1000

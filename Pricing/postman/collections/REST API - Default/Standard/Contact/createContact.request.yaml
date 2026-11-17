@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/sobjects}}/Contact"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "AccountId": "{{accountID}}",
+        "LastName": "{{lastName}}"
+    }
+order: 1000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/sobjects}}/Account/ExternalId__c/{{externalId}}"
+method: DELETE
+order: 6000

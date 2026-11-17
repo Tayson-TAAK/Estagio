@@ -1,0 +1,50 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite/tree/Account"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+    	"records" :[{
+    		"attributes" : {"type" : "Account", "referenceId" : "refAccount"},
+    		"name" : "SampleAccount1",
+    		"phone" : "1234567890",
+    		"numberOfEmployees" : "100",
+    		"industry" : "Banking",
+    		"ExternalId__c": "Omega",
+    		"CNPJ__c": "VS.6D8.5M7/0001-12",
+    		"Account_Group__c": "a00g800002aShpRAAS",
+    		"Orders": {
+    			"records": [{
+    				"attributes" : {"type" : "Order", "referenceId" : "refOrder"},
+    				"status" : "draft",
+    				"effectiveDate" : "2001-11-11",
+    				"ExternalId__c" : "Epsilon",
+    				"Pricebook2Id": "{{pricebookId}}",
+    				"Payment_Term__c": "a04g8000004H1lmAAC",
+    				"Shipping_Method__c": "FOB",
+    				"Address__c": "130g8000009plfeAAA",
+    				"Distribution_Center__c": "a06g800000AKg3mAAD",
+    				"Delivery_Date__c": "2022-12-12",	
+    				"OrderItems": {
+    					"records": [{
+    						"attributes" : {"type" : "OrderItem", "referenceId" : "refOrderItem1"},
+    						"ExternalId__c" : "Beta",
+    						"product2Id": "{{productId}}",
+    						"Quantity": 1,
+    						"UnitPrice": 10,
+    						"PriceBookEntryId": "{{pricebookEntryID}}"
+    					},{
+    						"attributes" : {"type" : "OrderItem", "referenceId" : "refOrderItem2"},
+    						"ExternalId__c" : "Charles",
+    						"product2Id": "{{productId}}",
+    						"Quantity": 1,
+    						"UnitPrice": 10,
+    						"PriceBookEntryId": "{{pricebookEntryID}}"
+    					}]
+    				}
+    			}]
+    		}
+    	}]
+    }
+order: 2000

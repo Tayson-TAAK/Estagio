@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite/sobjects/?ids={{orderID1}},{{orderID2}},{{orderItemID1}},{{orderItemID2}}&allOrNone=true"
+method: DELETE
+queryParams:
+  ids: "{{orderID1}},{{orderID2}},{{orderItemID1}},{{orderItemID2}}"
+  allOrNone: "true"
+body:
+  type: text
+  content: ""
+order: 8000

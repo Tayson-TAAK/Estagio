@@ -1,0 +1,37 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite"
+method: POST
+body:
+  type: json
+  content: |+
+    {
+        "allOrNone" : false,
+    	"compositeRequest": [{
+    		"method": "PATCH",
+    		"url": "/{{uri}}/composite/sobjects/Order/ExternalId__c/{{externalID}}",
+    		"referenceId": "refOrder",
+    		"body": {
+    			"allOrNone": false,
+    			"records" : [{
+    				"attributes" : {"type" : "Order"},
+    				"ExternalId__c" : "{{externalID1}}",
+    				"Status" : "Draft"
+    			},{
+    				"attributes" : {"type" : "Order"},
+    				"ExternalId__c" : "{{externalID2}}",
+    				"Status" : "Activated"
+    			}]
+    		}
+    	},{
+    		"method": "GET",
+    		"url": "/{{uri/sobjects}}/Order/ExternalId__c/{{externalID1}}",
+    		"referenceId": "refOrder1"
+    	},{
+    		"method": "GET",
+    		"url": "/{{uri/sobjects}}/Order/ExternalId__c/{{externalID2}}",
+    		"referenceId": "refOrder2"
+    	}]
+    }
+
+
+order: 5000

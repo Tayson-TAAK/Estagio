@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "allOrNone": true,
+        "compositeRequest": [
+            {
+                "method": "GET",
+                "url": "/{{uri/query}}/?q=SELECT+Id,+Name+FROM+Account+WHERE+ExternalId__c='Omega'",
+                "referenceId": "refAccount"
+            },
+            {
+                "method": "GET",
+                "url": "/{{uri/query}}/?q=SELECT+Id,+Name+FROM+Order+WHERE+ExternalId__c='Epsilon'+AND+AccountId='@{refAccount.records[0].Id}'",
+                "referenceId": "refOrder"
+            },
+            {
+                "method": "GET",
+                "url": "/{{uri/query}}/?q=SELECT+Id,+ExternalId__c,+OrderId+FROM+OrderItem+WHERE+OrderId='@{refOrder.records[0].Id}'",
+                "referenceId": "refOrderItem"
+            }
+        ]
+    }
+order: 3000

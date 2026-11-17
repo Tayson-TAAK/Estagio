@@ -319,6 +319,13 @@ private class OrderServiceTest {
             } 
         }
     }
+    static void verifyDatabaseResult(Database.SaveResult DBResult, Boolean typeValidation){
+        if(typeValidation == true) {
+            Assert.isTrue(dbResult.isSuccess());
+        } else if (typeValidation == false){
+            Assert.isFalse(dbResult.isSuccess());
+        }
+    }
 
     public static String generateCNPJ() {
         List<Integer> digits = new List<Integer>();
@@ -358,6 +365,7 @@ private class OrderServiceTest {
     @IsTest
     static void myUnitTest() {
         List<Database.SaveResult> listDatabaseResult;
+        Database.SaveResult dataBaseResult;
 
         //Account Group - Insert ------------------------------------------------------------------
         List<Account_Group__c> listAccountGroup = new List<Account_Group__c>();
@@ -517,16 +525,31 @@ private class OrderServiceTest {
         listDatabaseResult = Database.update(listOrder);
         verifyDatabaseResult(listDatabaseResult, true);
 
+        //OrderProduct - Update -------------------------------------------------------------------
+        OrderItem orderItemChanged = new OrderItem(
+            Id = listOrderItem[0].Id,
+            Quantity = 2
+        );
+        listOrderItem[0] = orderItemChanged;
+
+        listDatabaseResult = Database.update(listOrderItem);
+        verifyDatabaseResult(listDatabaseResult, true);
+
+
         // ----------------------------------------------------------------------------------------
         // | Tratativas dos if
         // ----------------------------------------------------------------------------------------
+        
+        Freight__c freightChanged = new Freight__c(
+            Name = 'FreteAlterador',
+            Product__c = listProduct[1].Id,
+            Distribution_Center__c = listDistributionCenter[0].Id,
+            Status__c = 'Approved',
+            Value__c = 10,
+            State__c = listState[0].Id
+        );
 
-        accountChanged.CNPJ__c = '1';
-        System.Debug(Database.update(accountChanged));
-        // try{
-            
-        // }catch(DmlException exMsg){
-        //     System.debug(exMsg);
-        // }
+        Database.insert(freightChanged);
+        System.debug(freightChanged);
     }
 }

@@ -1,0 +1,39 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri}}/composite"
+method: POST
+body:
+  type: json
+  content: |+
+    {
+        "allOrNone" : false,
+    	"compositeRequest": [{
+    		"method": "PATCH",
+    		"url": "/{{uri}}/composite/sobjects/OrderItem/ExternalId__c/{{externalID}}",
+    		"referenceId": "refOrderItem",
+    		"body": {
+    			"allOrNone": false,
+    			"records" : [{
+    				"attributes" : {"type" : "OrderItem"},
+    				"ExternalId__c" : "{{externalID1}}",
+    				"UnitPrice" : 100,
+    				"Quantity": 2
+    			},{
+    				"attributes" : {"type" : "OrderItem"},
+    				"ExternalId__c" : "{{externalID2}}",
+    				"UnitPrice" : 50,
+    				"Quantity": 3
+    			}]
+    		}
+    	},{
+    		"method": "GET",
+    		"url": "/{{uri/sobjects}}/OrderItem/ExternalId__c/{{externalID1}}",
+    		"referenceId": "refOrderItem1"
+    	},{
+    		"method": "GET",
+    		"url": "/{{uri/sobjects}}/OrderItem/ExternalId__c/{{externalID2}}",
+    		"referenceId": "refOrderItem2"
+    	}]
+    }
+
+
+order: 6000

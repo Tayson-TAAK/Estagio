@@ -1,0 +1,29 @@
+$kind: http-request
+url: "{{instance_url}}/{{uri/sobjects}}/Account"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "Name": "{{name}}",
+        "Phone": "{{phone}}",
+        "ExternalId__c": "{{externalID}}",
+        "NumberOfEmployees": {{numberEmployees}},
+        "Industry": "{{industry}}",
+        "CNPJ__c": "{{cnpj}}",
+        "Account_Group__c": "{{accountGroupID}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      {
+          Name = pm.collectionVariables.Name,
+          Phone = pm.collectionVariables.Phone,
+          ExternalId__c = pm.collectionVariables.ExternalId__c,
+          NumberOfEmployees = pm.collectionVariables.NumberOfEmployees,
+          Industry = pm.collectionVariables.Industry,
+          CNPJ__c = pm.collectionVariables.CNPJ__c,
+          Account_Group__c = pm.collectionVariables.Account_Group__c
+      }
+    language: text/javascript
+order: 1000
