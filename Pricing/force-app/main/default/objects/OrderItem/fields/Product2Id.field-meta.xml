@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product2Id</fullName>
+    <description>Order item Product Code</description>
+    <inlineHelpText>Order item Product Code</inlineHelpText>
+    <type>Lookup</type>
+</CustomField>
